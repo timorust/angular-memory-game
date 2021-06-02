@@ -7,15 +7,16 @@
     </ul>
   </header>
 
-  <ul *ngIf="gameStarted" class="board"
-      [class.compare]="compare.length === 2">
-    <li *ngFor="let card of cardsArray;"
-        [class.flip]="card.flip"
-        [class.open]="card.open"
-        (click)="checkCard(card)">
-      <img [src]="card.image" [alt]="card.answer" [title]="card.answer">
-    </li>
-  </ul>
+
+
+  <div *ngIf="gameStarted" class="board"
+       [class.compare]="compare.length === 2">
+
+    <ag-card-item *ngFor="let card of cardsArray;"
+                  [cards]="card"
+                  (checkCard$)="checkCard($event)"
+    ></ag-card-item>
+  </div>
 
   <div *ngIf="!gameStarted">
     <div *ngIf="score">
