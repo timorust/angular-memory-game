@@ -17,7 +17,7 @@ export class AppComponent {
   score: number = 0;
   steps: number = 0;
   timer: number = 120;
-  gameStarted: boolean;
+  gameStarted = false;
   compare: string[] = [];
 
   // helpers val
@@ -57,7 +57,7 @@ export class AppComponent {
       },
       {
         answer: 'donkey',
-        image: 'https://storage.hidabroot.org/articles_new/120791_tumb_750Xauto.jpg',
+        image: 'https://s3-us-west-2.amazonaws.com/melingoimages/Images/28098.jpg',
         flip: false,
         open: false
       },
@@ -95,7 +95,7 @@ export class AppComponent {
       },
       {
         answer: 'donkey',
-        image: 'https://storage.hidabroot.org/articles_new/120791_tumb_750Xauto.jpg',
+        image: 'https://s3-us-west-2.amazonaws.com/melingoimages/Images/28098.jpg',
         flip: false,
         open: false
       },
@@ -129,22 +129,21 @@ export class AppComponent {
 
   checkCard(card: CardInterface) {
     if(card.open || card.flip) return;
+
     card.flip = true;
+
     this.compare.push(card.answer);
 
     if(this.compare.length === 2) {
       let isCorrect: boolean = this.compare[0] === this.compare[1];
 
       setTimeout(() => {
-        this.cardsArray.map((cardItem:CardInterface) => {
-          if(isCorrect && cardItem.flip) {
-            cardItem.open = isCorrect;
-            cardItem.flip = true;
-          }
-          else {
-            cardItem.flip = false
-          }
-        });
+      for(let cardItem of this.cardsArray) {
+        if(cardItem.flip) {
+          cardItem.open = isCorrect;
+          cardItem.flip = false;
+        }
+      }
         this.checkGameStatus();
         this.compare = [];
       },800);

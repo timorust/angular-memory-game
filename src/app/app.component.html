@@ -1,5 +1,5 @@
   <header>
-    <h1>Angular Memory Game</h1>
+    <h1>Angular-Memory-Game</h1>
     <ul>
       <li>Score: <span>{{score}}</span></li>
       <li>Steps: <span>{{steps}}</span></li>
@@ -7,7 +7,8 @@
     </ul>
   </header>
 
-  <ul *ngIf="gameStarted" class="board" [class.compare]="compare.length === 2">
+  <ul *ngIf="gameStarted" class="board"
+      [class.compare]="compare.length === 2">
     <li *ngFor="let card of cardsArray;"
         [class.flip]="card.flip"
         [class.open]="card.open"
